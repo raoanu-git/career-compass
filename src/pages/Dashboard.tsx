@@ -5,6 +5,8 @@ import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Badge } from '@/components/ui/badge';
 import { Progress } from '@/components/ui/progress';
+import { doc, getDoc } from 'firebase/firestore';
+import { db } from '@/lib/firebase';
 import {
   Briefcase,
   Target,
@@ -180,8 +182,8 @@ const mockOnboardingData: OnboardingData = {
 export default function Dashboard() {
   const { user, signOut } = useAuth();
   const { userRole, loading: roleLoading } = useRole();
-  const [profile, setProfile] = useState<UserProfile>(mockUserProfile);
-  const [onboardingData, setOnboardingData] = useState<OnboardingData>(mockOnboardingData);
+  const [profile, setProfile] = useState<UserProfile | null>(null);
+  const [onboardingData, setOnboardingData] = useState<OnboardingData | null>(null);
   const [internships, setInternships] = useState<Internship[]>(mockInternships);
   const [sortOption, setSortOption] = useState<'stipend' | 'rating' | 'match' | 'duration'>('match');
   const [loading, setLoading] = useState<boolean>(true);
@@ -193,8 +195,8 @@ export default function Dashboard() {
 
   // Calculate readiness score based on profile completeness
   const readinessScore = Math.min(100,
-    Object.values(mockUserProfile).filter(value => value).length * 8 +
-    Object.values(mockOnboardingData).filter(value => value).length * 10
+    (profile ? Object.values(profile).filter(value => value).length * 8 : 0) +
+    (onboardingData ? Object.values(onboardingData).filter(value => value).length * 10 : 0)
   );
 
   const handleSignOut = async () => {
@@ -237,6 +239,53 @@ export default function Dashboard() {
     setInternships(sorted);
   }, [sortOption]);
 
+  // Fetch user profile data when user is authenticated
+  useEffect(() => {
+    const fetchUserProfile = async () => {
+      if (user) {
+        try {
+          const userDoc = await getDoc(doc(db, 'users', user.uid));
+          if (userDoc.exists()) {
+            const userData = userDoc.data();
+            setProfile(userData.profile || userData);
+            setOnboardingData(userData.onboardingData || userData);
+          } else {
+            // If no profile exists, use the user's auth info as fallback
+            setProfile({
+              full_name: user.displayName || user.email?.split('@')[0] || 'User',
+              email: user.email || '',
+              year_of_study: '',
+              cgpa_range: '',
+              education_stream: '',
+              target_industries: [],
+              primary_technical_strength: '',
+              weekly_commitment_hours: 0,
+              learning_style: ''
+            });
+          }
+        } catch (error) {
+          console.error('Error fetching user profile:', error);
+          // Fallback to using auth data
+          setProfile({
+            full_name: user.displayName || user.email?.split('@')[0] || 'User',
+            email: user.email || '',
+            year_of_study: '',
+            cgpa_range: '',
+            education_stream: '',
+            target_industries: [],
+            primary_technical_strength: '',
+            weekly_commitment_hours: 0,
+            learning_style: ''
+          });
+        } finally {
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchUserProfile();
+  }, [user]);
+
   // Apply filters
   useEffect(() => {
     let filtered = [...mockInternships];
@@ -260,7 +309,7 @@ export default function Dashboard() {
     setInternships(filtered);
   }, [filterLocation, filterSkills]);
 
-  if (roleLoading) {
+  if (roleLoading || (user && loading)) {
     return (
       <div className="min-h-screen bg-slate-50 flex items-center justify-center">
         <div className="text-center">
@@ -301,7 +350,7 @@ export default function Dashboard() {
 
             <div className="flex items-center gap-4">
               <span className="text-sm text-slate-500 hidden sm:block">
-                {profile?.full_name || user?.email}
+                {user?.displayName || (profile && profile.full_name) || user?.email?.split('@')[0] || 'User'}
               </span>
               <Button variant="ghost" size="icon" onClick={handleSignOut} className="text-slate-500 hover:text-red-600 hidden md:flex">
                 <LogOut className="w-5 h-5" />
@@ -350,7 +399,7 @@ export default function Dashboard() {
         {/* Welcome Section */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold mb-2 text-slate-900">
-            Welcome back, <span className="text-blue-600">{profile?.full_name?.split(' ')[0] || 'there'}</span>! 👋
+            Welcome back, <span className="text-blue-600">{user?.displayName?.split(' ')[0] || (profile && profile.full_name?.split(' ')[0]) || user?.email?.split('@')[0] || 'there'}</span>! 👋
           </h1>
           <p className="text-slate-500">Here's your personalized career dashboard</p>
         </div>
