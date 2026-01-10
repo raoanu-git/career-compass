@@ -34,21 +34,30 @@ export function Hero() {
             Efficiently manage your career growth, track internship applications, and boost your skills with our senior-verified roadmaps.
           </p>
 
-          <div className="flex items-center justify-center gap-4">
+          <div className="flex flex-wrap items-center justify-center gap-4">
             <Button
+              variant="outline"
               size="lg"
-              className="h-14 px-8 text-lg bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-xl shadow-blue-600/20 hover:shadow-2xl hover:shadow-blue-600/30 transition-all hover:-translate-y-1"
-              onClick={() => navigate('/role-selection')}
+              className="h-14 px-8 text-lg rounded-full border-2 border-blue-200 hover:bg-blue-50 text-blue-600 hover:border-blue-300 transition-all"
+              onClick={() => navigate('/auth')}
             >
-              Get Started Free
-              <ArrowRight className="ml-2 w-5 h-5" />
+              Sign In
             </Button>
             <Button
               variant="outline"
               size="lg"
               className="h-14 px-8 text-lg rounded-full border-2 border-slate-200 hover:bg-slate-50 text-slate-600 hover:border-slate-300 transition-all"
+              onClick={() => navigate('/role-selection')}
             >
-              View Demo
+              Join Community
+            </Button>
+            <Button
+              variant="outline"
+              size="lg"
+              className="h-14 px-8 text-lg rounded-full border-2 border-indigo-200 hover:bg-indigo-50 text-indigo-600 hover:border-indigo-300 transition-all"
+              onClick={() => navigate('/roadmap')}
+            >
+              Explore Roadmaps
             </Button>
           </div>
 

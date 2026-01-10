@@ -676,7 +676,7 @@ export default function Onboarding() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-50">
+    <div className="min-h-screen flex flex-col bg-slate-50">
       <header className="bg-white/80 backdrop-blur-md sticky top-0 z-50 border-b border-gray-100">
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -697,39 +697,43 @@ export default function Onboarding() {
         </div>
       </header>
 
-      <main className="max-w-2xl mx-auto px-4 py-12">
-        <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
-          {renderStep()}
-        </div>
+      <div className="flex-1 flex flex-col max-w-2xl mx-auto px-4 py-8 w-full">
+        <main className="flex-1">
+          <div className="bg-white rounded-[2rem] p-8 shadow-sm border border-slate-100">
+            {renderStep()}
+          </div>
+        </main>
 
-        {/* Navigation */}
-        <div className="flex justify-between mt-8">
-          <Button
-            variant="ghost"
-            onClick={prevStep}
-            disabled={currentStep === 1}
-            className="h-12 px-6 text-slate-500 hover:text-slate-900"
-          >
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back
-          </Button>
-
-          {currentStep < totalSteps ? (
-            <Button onClick={nextStep} className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/25">
-              Continue
-              <ArrowRight className="w-4 h-4 ml-2" />
-            </Button>
-          ) : (
+        {/* Fixed Navigation */}
+        <div className="py-6 mt-auto">
+          <div className="flex justify-between">
             <Button
-              onClick={handleSubmit}
-              disabled={submitting}
-              className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/25"
+              variant="ghost"
+              onClick={prevStep}
+              disabled={currentStep === 1}
+              className="h-12 px-6 text-slate-500 hover:text-slate-900"
             >
-              {submitting ? 'Finishing...' : 'Complete Setup'}
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back
             </Button>
-          )}
+
+            {currentStep < totalSteps ? (
+              <Button onClick={nextStep} className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/25">
+                Continue
+                <ArrowRight className="w-4 h-4 ml-2" />
+              </Button>
+            ) : (
+              <Button
+                onClick={handleSubmit}
+                disabled={submitting}
+                className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/25"
+              >
+                {submitting ? 'Finishing...' : 'Complete Setup'}
+              </Button>
+            )}
+          </div>
         </div>
-      </main>
+      </div>
     </div>
   );
 }

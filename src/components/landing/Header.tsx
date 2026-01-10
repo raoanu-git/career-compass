@@ -33,10 +33,11 @@ export function Header() {
             Sign in
           </Button>
           <Button
-            className="bg-blue-600 hover:bg-blue-700 text-white rounded-full px-6 shadow-lg shadow-blue-600/20 font-medium transition-all hover:scale-105"
-            onClick={() => navigate('/role-selection')}
+            variant="outline"
+            className="border-slate-300 text-slate-700 hover:bg-slate-50 font-medium"
+            onClick={() => navigate('/roadmap')}
           >
-            Get Started
+            Roadmap
           </Button>
         </div>
       </div>

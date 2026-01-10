@@ -144,39 +144,39 @@ export default function Auth() {
   };
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#1f3445]/10 to-blue-950/20 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-50 flex items-center justify-center p-4">
       <div className="max-w-md w-full">
         <div className="text-center mb-8">
-          <h1 className="text-3xl font-bold text-[#1f3445] mb-2">Perfect Placement</h1>
-          <p className="text-[#1f3445]/70">
+          <h1 className="text-3xl font-bold text-slate-900 mb-2">CareerCompass</h1>
+          <p className="text-slate-900/70">
             {isLogin ? 'Sign in to your account' : 'Create your account'}
           </p>
         </div>
 
-        <Card className="bg-white/90 backdrop-blur-sm border-[#1f3445]/30 shadow-lg">
+        <Card className="bg-white/90 backdrop-blur-sm border-blue-200 shadow-lg">
           <CardContent className="p-6">
             <form onSubmit={handleSubmit} className="space-y-4">
               <div>
-                <Label htmlFor="email" className="text-[#1f3445] font-bold">Email</Label>
+                <Label htmlFor="email" className="text-slate-900 font-bold">Email</Label>
                 <Input
                   id="email"
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
-                  className="h-12 border-[#1f3445]/30 text-[#1f3445]"
+                  className="h-12 border-blue-200 text-slate-900"
                   placeholder="Enter your email"
                   required
                 />
               </div>
 
               <div>
-                <Label htmlFor="password" className="text-[#1f3445] font-bold">Password</Label>
+                <Label htmlFor="password" className="text-slate-900 font-bold">Password</Label>
                 <Input
                   id="password"
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
-                  className="h-12 border-[#1f3445]/30 text-[#1f3445]"
+                  className="h-12 border-blue-200 text-slate-900"
                   placeholder="Enter your password"
                   required
                 />
@@ -184,13 +184,13 @@ export default function Auth() {
 
               {!isLogin && (
                 <div>
-                  <Label htmlFor="confirmPassword" className="text-[#1f3445] font-bold">Confirm Password</Label>
+                  <Label htmlFor="confirmPassword" className="text-slate-900 font-bold">Confirm Password</Label>
                   <Input
                     id="confirmPassword"
                     type="password"
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
-                    className="h-12 border-[#1f3445]/30 text-[#1f3445]"
+                    className="h-12 border-blue-200 text-slate-900"
                     placeholder="Confirm your password"
                     required
                   />
@@ -199,7 +199,7 @@ export default function Auth() {
 
               <Button
                 type="submit"
-                className="w-full h-12 bg-[#1f3445] hover:bg-[#1f3445]/90 text-white font-bold"
+                className="w-full h-12 bg-blue-600 hover:bg-blue-700 text-white font-bold"
                 disabled={loading}
               >
                 {loading ? (
@@ -222,7 +222,7 @@ export default function Auth() {
               <Button
                 type="button"
                 variant="outline"
-                className="w-full h-12 border-[#1f3445]/30 text-[#1f3445] font-bold hover:bg-[#1f3445]/5 flex items-center justify-center gap-2"
+                className="w-full h-12 border-blue-200 text-slate-900 font-bold hover:bg-blue-50 flex items-center justify-center gap-2"
                 onClick={handleGoogleAuth}
                 disabled={loading}
               >
@@ -239,7 +239,7 @@ export default function Auth() {
             <div className="mt-6 text-center">
               <Button
                 variant="link"
-                className="text-[#1f3445] font-bold hover:text-[#1f3445]/80"
+                className="text-blue-600 font-bold hover:text-blue-700"
                 onClick={() => setIsLogin(!isLogin)}
               >
                 {isLogin
@@ -252,7 +252,7 @@ export default function Auth() {
               <Button
                 variant="link"
                 asChild
-                className="text-[#1f3445] font-bold hover:text-[#1f3445]/80"
+                className="text-blue-600 font-bold hover:text-blue-700"
               >
                 <Link to="/">Back to Home</Link>
               </Button>
