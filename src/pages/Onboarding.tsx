@@ -656,6 +656,53 @@ export default function Onboarding() {
     }, 500);
   };
 
+  const loadDemoData = () => {
+    const demoData = {
+      // Academic
+      yearOfStudy: '3rd Year',
+      cgpaRange: '8.0-9.0',
+      activeBacklogs: 'none',
+      educationStream: 'Computer Science',
+      universityName: 'MIT University',
+      degreeBranch: 'Computer Science Engineering',
+      
+      // Skills
+      targetIndustries: ['Technology', 'AI', 'Startups'],
+      primaryTechnicalStrength: 'Full Stack Development',
+      secondarySkills: ['JavaScript', 'Python', 'React', 'Node.js', 'SQL'],
+      certificationStatus: 'completed',
+      projectExperienceLevel: 'intermediate',
+      
+      // Experience
+      hasPreviousInternships: true,
+      internshipDetails: 'Software Engineer Intern at Google, Summer 2023',
+      hasHackathonExperience: true,
+      hasOpensourceExperience: true,
+      interviewComfort: 4,
+      aptitudeComfort: 5,
+      
+      // Preferences
+      internshipTypePreference: 'remote',
+      preferredDuration: '3-4 months',
+      govtInternshipInterest: 'somewhat-interested',
+      relocationReadiness: 'willing-to-consider',
+      
+      // Goals
+      primaryGoal: 'technical-growth',
+      targetCompanies: ['Google', 'Microsoft', 'Meta', 'Netflix'],
+      weeklyCommitmentHours: 30,
+      learningStyle: 'visual',
+      
+      // Guidance
+      wantsSeniorGuidance: true,
+      wantsPeerComparison: true,
+      additionalInfo: 'Passionate about AI and machine learning. Looking for opportunities to work on innovative projects.'
+    };
+    
+    setFormData(demoData);
+    toast.success('Demo data loaded successfully!');
+  };
+
   const renderStep = () => {
     switch (currentStep) {
       case 1:
@@ -706,17 +753,26 @@ export default function Onboarding() {
 
         {/* Fixed Navigation */}
         <div className="py-6 mt-auto">
-          <div className="flex justify-between">
-            <Button
-              variant="ghost"
-              onClick={prevStep}
-              disabled={currentStep === 1}
-              className="h-12 px-6 text-slate-500 hover:text-slate-900"
-            >
-              <ArrowLeft className="w-4 h-4 mr-2" />
-              Back
-            </Button>
-
+          <div className="flex flex-col sm:flex-row justify-between gap-4">
+            <div className="flex gap-2">
+              <Button
+                variant="outline"
+                onClick={loadDemoData}
+                className="h-12 px-4 text-slate-500 hover:text-slate-900"
+              >
+                Use Demo Data
+              </Button>
+              <Button
+                variant="ghost"
+                onClick={prevStep}
+                disabled={currentStep === 1}
+                className="h-12 px-6 text-slate-500 hover:text-slate-900"
+              >
+                <ArrowLeft className="w-4 h-4 mr-2" />
+                Back
+              </Button>
+            </div>
+            
             {currentStep < totalSteps ? (
               <Button onClick={nextStep} className="h-12 px-8 bg-blue-600 hover:bg-blue-700 text-white rounded-full shadow-lg shadow-blue-600/25">
                 Continue
