@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState, ReactNode } from 'react';
 import { useAuth } from './auth-context';
-import { doc, getDoc, setDoc } from 'firebase/firestore';
+import { doc, getDoc, setDoc, DocumentSnapshot } from 'firebase/firestore';
 import { auth, db } from '@/lib/firebase';
 
 interface RoleContextType {
@@ -53,10 +53,10 @@ export function RoleProvider({ children }: { children: ReactNode }) {
           if (result && isMounted) {
             // It was the fetch that won and returned a snapshot
             // (Timeout promise resolves to undefined/void)
-            const snap = result as any;
+            const snap = result as DocumentSnapshot;
             if (snap.exists && snap.exists()) {
               const userData = snap.data();
-              if (userData.role && ['applicant', 'recruiter'].includes(userData.role)) {
+              if (userData?.role && ['applicant', 'recruiter'].includes(userData.role)) {
                 setUserRoleState(userData.role);
               } else {
                 setUserRoleState('applicant');
@@ -74,6 +74,10 @@ export function RoleProvider({ children }: { children: ReactNode }) {
           console.error('Error fetching user role:', error);
           if (isMounted) setUserRoleState('applicant');
         }
+
+        return () => {
+          isMounted = false;
+        };
       } else {
         setUserRoleState(null);
       }
