@@ -329,7 +329,7 @@ export default function Dashboard() {
             <div className="w-10 h-10 rounded-xl bg-blue-600 flex items-center justify-center shadow-lg shadow-blue-600/20">
               <Briefcase className="w-5 h-5 text-white" />
             </div>
-            <span className="text-xl font-bold text-slate-900">CareerCompass</span>
+            <span className="text-xl font-bold text-slate-900">Perfect Placement</span>
           </div>
 
           <div className="flex items-center gap-6">

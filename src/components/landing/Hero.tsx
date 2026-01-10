@@ -47,7 +47,7 @@ export function Hero() {
               variant="outline"
               size="lg"
               className="h-14 px-8 text-lg rounded-full border-2 border-slate-200 hover:bg-slate-50 text-slate-600 hover:border-slate-300 transition-all"
-              onClick={() => navigate('/role-selection')}
+              onClick={() => navigate('/community')}
             >
               Join Community
             </Button>

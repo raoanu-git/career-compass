@@ -13,15 +13,10 @@ export function Header() {
               <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
             </svg>
           </div>
-          <span className="text-xl font-bold tracking-tight text-slate-900">CareerCompass</span>
+          <span className="text-xl font-bold tracking-tight text-slate-900">Perfect Placement</span>
         </div>
 
         <nav className="hidden md:flex items-center gap-8">
-          {['Features', 'Market', 'Resources', 'Pricing'].map((item) => (
-            <a key={item} href="#" className="text-sm font-medium text-slate-500 hover:text-blue-600 transition-colors">
-              {item}
-            </a>
-          ))}
         </nav>
 
         <div className="flex items-center gap-4">

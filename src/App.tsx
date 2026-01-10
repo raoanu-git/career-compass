@@ -14,6 +14,7 @@ import InternshipDetail from "./pages/InternshipDetail";
 import NotFound from "./pages/NotFound";
 import RecruiterDashboard from "./pages/RecruiterDashboard";
 import Roadmap from "./pages/Roadmap";
+import Community from "./pages/Community";
 
 const queryClient = new QueryClient();
 
@@ -34,6 +35,7 @@ const App = () => (
               <Route path="/roadmap" element={<Roadmap />} />
               <Route path="/internship/:id" element={<InternshipDetail />} />
               <Route path="/recruiter-dashboard" element={<RecruiterDashboard />} />
+              <Route path="/community" element={<Community />} />
               <Route path="*" element={<NotFound />} />
             </Routes>
           </BrowserRouter>
